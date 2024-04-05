@@ -18,11 +18,11 @@
 			</picture>
 		</span>
 
-		to your new<br />SvelteKit app
+		to the Luna<br />Computer Graphics Website
 	</h1>
 
 	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
+		<strong>look at this cool counter</strong>
 	</h2>
 
 	<Counter />
