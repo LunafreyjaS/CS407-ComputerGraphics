@@ -10,8 +10,6 @@ function createCamera() {
     100, // far clipping plane
   );
 
-  // move the camera back so we can view the scene
-  camera.position.set(0, 0, 15);
 
   return camera;
 }
