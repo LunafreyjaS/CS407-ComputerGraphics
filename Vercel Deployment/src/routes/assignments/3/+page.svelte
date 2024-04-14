@@ -5,6 +5,7 @@
 
     import { onMount } from 'svelte';
     import {World} from '$lib/World/World.js';
+    import { PointLight } from 'three';
 
     let canvas;
     let world = null;
@@ -26,11 +27,9 @@
     <body>
         <h2>Luna's Placeholder Name</h2>
 
-        <div id="scene-container"></div>
-
         <button on:click={World.lightingSwap}>
-            {#if World.isLighting} Turn Off Lighting {/if}
-            {#if !World.isLighting} Turn On Lighting {/if}
+            {#if World.isLighting} Swap for Point Lighting {/if}
+            {#if !World.isLighting} Swap for Directional Lighting {/if}
         </button>
 
         <!-- <button on:click={toggleAnimation}>

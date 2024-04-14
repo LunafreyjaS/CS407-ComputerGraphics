@@ -11,7 +11,8 @@ import {Resizer} from './systems/Resizer.js';
 
 import {Color} from 'three';
 
-let camera, renderer, scene, isLighting;
+let camera, renderer, scene 
+let isLighting = true;
 
 
 class World {
@@ -32,14 +33,12 @@ class World {
 
         const pointLight = createPointLight();
         pointLight.position.set(0, 7, 0);
-        pointLight.intensity = 3;
+        pointLight.intensity = 0;
         pointLight.color = new Color('blue');
 
         const directionalLight = createDirectionalLight();
         directionalLight.position.set(-10, 10, -10);
         directionalLight.intensity = 1.5;
-
-        isLighting = true;
 
         scene.add(octahedron);
         scene.add(torusHex);
