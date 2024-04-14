@@ -26,6 +26,8 @@
     <body>
         <h2>Luna's Placeholder Name</h2>
 
+        <div id="scene-container"></div>
+
         <button on:click={World.lightingSwap}>
             {#if World.isLighting} Swap for Point Lighting {/if}
             {#if !World.isLighting} Swap for Directional Lighting {/if}
@@ -39,6 +41,8 @@
         <button on:click={World.moveTorusHex("right")}>Right</button>
         <br>
         <button on:click={World.moveTorusHex("down")}>Down</button>
+
+
 
         <!-- <button on:click={toggleAnimation}>
             {#if isAnimating} Stop Animation {/if}
