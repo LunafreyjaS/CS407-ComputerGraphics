@@ -4,7 +4,7 @@
     export let data;
 
     import { onMount } from 'svelte';
-    import {World} from 'World/World.js';
+    import {World} from '$lib/World/World.js';
 
     let canvas;
     let world = null;
