@@ -16,4 +16,4 @@ class Resizer {
     }
   }
 
-  export {Reizer};
+  export {Resizer};
