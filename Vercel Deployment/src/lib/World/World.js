@@ -8,7 +8,7 @@ import { createScene } from './components/scene.js';
 import { createRenderer } from './systems/renderer.js';
 import {Resizer} from './systems/Resizer.js';
 
-import * as THREE from 'three';
+import {Color} from 'three';
 
 let camera, renderer, scene;
 
