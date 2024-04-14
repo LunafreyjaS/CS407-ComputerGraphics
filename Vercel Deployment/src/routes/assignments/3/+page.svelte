@@ -33,12 +33,12 @@
         
         <br>
 
-        <button on:click={World.moveTorus("up")}>Up</button>
+        <button on:click={World.moveTorusHex("up")}>Up</button>
         <br>
-        <button on:click={World.moveTorus("left")}>Left</button>
-        <button on:click={World.moveTorus("right")}>Right</button>
+        <button on:click={World.moveTorusHex("left")}>Left</button>
+        <button on:click={World.moveTorusHex("right")}>Right</button>
         <br>
-        <button on:click={World.moveTorus("down")}>Down</button>
+        <button on:click={World.moveTorusHex("down")}>Down</button>
 
         <!-- <button on:click={toggleAnimation}>
             {#if isAnimating} Stop Animation {/if}
