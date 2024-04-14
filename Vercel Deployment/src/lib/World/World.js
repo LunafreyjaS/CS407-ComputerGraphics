@@ -18,7 +18,7 @@ class World {
     // 1. Create an instance of the World app
     constructor(container) {
         camera = createCamera();
-        camera.position.set(0, 0, 25);
+        camera.position.set(1, 0, 35);
 
         scene = createScene();
         renderer = createRenderer(container);
