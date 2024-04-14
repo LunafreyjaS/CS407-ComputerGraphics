@@ -18,7 +18,7 @@ class World {
     // 1. Create an instance of the World app
     constructor(container) {
         camera = createCamera();
-        camera.position.set(3, 0, 35);
+        camera.position.set(5, 0, 35);
         camera.lookAt(0, 0, 0);
 
         scene = createScene();
@@ -35,6 +35,7 @@ class World {
         pointLight.color = new Color('blue');
 
         const directionalLight = createDirectionalLight();
+        directionalLight.position.set(-10, 10, -10);
 
         scene.add(octahedron);
         scene.add(torusHex);
