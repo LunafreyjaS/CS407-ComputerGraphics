@@ -1,11 +1,11 @@
 //Code from three.js documentation
 
-import { createCamera } from '/components/camera.js';
-import { createOctahedron } from '/components/octahedron.js';
-import { createScene } from '/components/scene.js';
+import { createCamera } from './components/camera.js';
+import { createOctahedron } from './components/octahedron.js';
+import { createScene } from './components/scene.js';
 
-import { createRenderer } from '/systems/renderer.js';
-import {Resizer} from '/systems/Resizer.js';
+import { createRenderer } from './systems/renderer.js';
+import {Resizer} from './systems/Resizer.js';
 
 let camera, renderer, scene;
 
