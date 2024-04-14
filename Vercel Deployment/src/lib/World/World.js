@@ -4,6 +4,7 @@ import { createCamera } from './components/camera.js';
 import { createOctahedron } from './components/octahedron.js';
 import { createTorus } from './components/torus.js';
 import { createScene } from './components/scene.js';
+import { createDirectionalLight, createPointLight } from './components/lights.js';
 
 import { createRenderer } from './systems/renderer.js';
 import {Resizer} from './systems/Resizer.js';
@@ -17,7 +18,7 @@ class World {
     // 1. Create an instance of the World app
     constructor(container) {
         camera = createCamera();
-        camera.position.set(0, 0, 10);
+        camera.position.set(0, 0, 25);
 
         scene = createScene();
         renderer = createRenderer(container);
@@ -28,8 +29,16 @@ class World {
         const torusHex = createTorus();
         torusHex.material.color = new Color('red');
 
+        const pointLight = createPointLight();
+        pointLight.position.set(0, 10, 0);
+        pointLight.color = new Color('blue');
+
+        const directionalLight = createDirectionalLight();
+
         scene.add(octahedron);
         scene.add(torusHex);
+        scene.add(pointLight);
+        scene.add(directionalLight);
 
         const resizer = new Resizer(container, camera, renderer);
     }
