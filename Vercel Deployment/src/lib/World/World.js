@@ -11,15 +11,15 @@ import {Resizer} from './systems/Resizer.js';
 
 import {Color} from 'three';
 
-let camera, renderer, scene 
-let isLighting = true;
+let camera, renderer, scene;
+let torusHex, pointLight, directionalLight;
 
 
 class World {
     // 1. Create an instance of the World app
     constructor(container) {
         camera = createCamera();
-        camera.position.set(5, 0, 35);
+        camera.position.set(7, 0, 35);
         camera.lookAt(0, 0, 0);
 
         scene = createScene();
@@ -28,17 +28,20 @@ class World {
         const octahedron = createOctahedron();
         octahedron.material.color = new Color('purple');
 
-        const torusHex = createTorus();
+        torusHex = createTorus();
         torusHex.material.color = new Color('red');
 
-        const pointLight = createPointLight();
-        pointLight.position.set(0, 7, 0);
+        pointLight = createPointLight();
+        pointLight.position.set(0, 8, 1);
         pointLight.intensity = 0;
+        pointLight.decay = 20;
+        pointLight.distance = 200;
         pointLight.color = new Color('blue');
 
-        const directionalLight = createDirectionalLight();
-        directionalLight.position.set(-10, 10, -10);
-        directionalLight.intensity = 1.5;
+        directionalLight = createDirectionalLight();
+        directionalLight.position.set(-10, 10, 10);
+        directionalLight.lookAt(0, 0, 0);
+        directionalLight.intensity = 5;
 
         scene.add(octahedron);
         scene.add(torusHex);
@@ -55,25 +58,20 @@ class World {
 
     //3. Dynamic Lighting
     lightingSwap() {
-    
-        let pointLight = scene.getObjectByName('pointLight');
-        let directionalLight = scene.getObjectByName('directionalLight');
         
-        if (isLighting) {
+        if (pointLight.intensity > 0) {
             pointLight.intensity = 0;
-            directionalLight.intensity = 0;
-            isLighting = false;
+            directionalLight.intensity = 5;
         } else {
-            pointLight.intensity = 3;
-            directionalLight.intensity = 1.5;
-            isLighting = true;
+            pointLight.intensity = 400;
+            directionalLight.intensity = 0;
         }
 
+        this.render();
     }
 
     //4. Move torusHex
     moveTorusHex(direction) {
-        let torusHex = scene.getObjectByName('torusHex');
         
         if(direction == "left")
             torusHex.position.x -= 1;
@@ -83,6 +81,8 @@ class World {
             torusHex.position.y += 1;
         else if(direction == "down")
             torusHex.position.y -= 1;
+
+        this.render();
     }
 
 }

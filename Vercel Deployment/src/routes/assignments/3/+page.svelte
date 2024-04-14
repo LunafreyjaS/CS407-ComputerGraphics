@@ -1,19 +1,42 @@
 <script>
 
-    /** @type {import('./$types').PageData}*/
-    export let data;
-
     import { onMount } from 'svelte';
     import {World} from '$lib/World/World.js';
 
     let canvas;
     let world = null;
+    let isLighting = true;
 
     onMount(() => {
         world = new World(canvas);
 
         world.render();
     });
+
+    function lighting() {
+        world.lightingSwap();
+        if (isLighting) {
+            isLighting = false;
+        } else {
+            isLighting = true;
+        }
+    }
+
+    function moveUp() {
+        world.moveTorusHex("up");
+    }
+
+    function moveLeft() {
+        world.moveTorusHex("left");
+    }
+
+    function moveRight() {
+        world.moveTorusHex("right");
+    }
+
+    function moveDown() {
+        world.moveTorusHex("down");
+    }
 
 </script>
 
@@ -28,19 +51,19 @@
 
         <div id="scene-container"></div>
 
-        <button on:click={world.lightingSwap}>
-            {#if world.isLighting} Swap for Point Lighting {/if}
-            {#if !world.isLighting} Swap for Directional Lighting {/if}
+        <button on:click={lighting}>
+            {#if isLighting} Swap for Point Lighting {/if}
+            {#if !isLighting} Swap for Directional Lighting {/if}
         </button>
         
         <br>
 
-        <button on:click={world.moveTorusHex("up")}>Up</button>
+        <button on:click={moveUp}>Up</button>
         <br>
-        <button on:click={world.moveTorusHex("left")}>Left</button>
-        <button on:click={world.moveTorusHex("right")}>Right</button>
+        <button on:click={moveLeft}>Left</button>
+        <button on:click={moveRight}>Right</button>
         <br>
-        <button on:click={world.moveTorusHex("down")}>Down</button>
+        <button on:click={moveDown}>Down</button>
 
 
 
