@@ -15,3 +15,5 @@ class Resizer {
       renderer.setPixelRatio(window.devicePixelRatio);
     }
   }
+
+  export {Reizer};
