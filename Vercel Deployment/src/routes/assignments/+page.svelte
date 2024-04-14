@@ -9,6 +9,8 @@
     <a href="/assignments/1">Assignment 1: Hello World Cube</a>
     <br>
     <a href="/assignments/2">Assignment 2: Animation Test</a>
+    <br>
+    <a href="/assignments/3">Assignment 3: World Test</a>
 </section>
 
 <style>

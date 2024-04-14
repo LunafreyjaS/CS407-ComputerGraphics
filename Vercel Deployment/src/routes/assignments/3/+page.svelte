@@ -18,11 +18,13 @@
 <section>
 
     <head>
-        <title>Assignment 3</title>
-        <meta name="description" content="Assignment 2: World Test" />
+        <title>Assignment 3: World Test</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
     </head>
     <body>
         <h2>Luna's Placeholder Name</h2>
+
+        <div id="scene-container"></div>
 
         <!-- <button on:click={toggleAnimation}>
             {#if isAnimating} Stop Animation {/if}

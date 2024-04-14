@@ -38,7 +38,7 @@
 
 <section>
     <head>
-        <title>Assignment 1</title>
+        <title>Assignment 1: Hello World Cube</title>
         <meta name="description" content="Assignment 1: Hello World Cube" />
     </head>
     <body>

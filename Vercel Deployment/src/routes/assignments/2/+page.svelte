@@ -80,7 +80,7 @@
 
 <section>
     <head>
-        <title>Assignment 2</title>
+        <title>Assignment 2: Animation Test</title>
         <meta name="description" content="Assignment 2: Animation Test" />
     </head>
     <body>
