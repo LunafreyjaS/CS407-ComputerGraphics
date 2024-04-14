@@ -1,17 +1,18 @@
 <script>
+
+    /** @type {import('./$types').PageData}*/
+    export let data;
+
     import { onMount } from 'svelte';
     import {World} from 'World/World.js';
 
-    function main(){
-        
-        const container = document.querySelector('#scene-container');
+    let canvas;
+    let world = null;
 
-        const world = new World(container);
-
+    onMount(() => {
+        world = new World(canvas);
         world.render();
-    }
-
-    main();
+    });
 
 </script>
 
@@ -34,9 +35,9 @@
         <button on:click={toggleWireframe}>
             {#if isWireframe} Hide Wireframe {/if}
             {#if !isWireframe} Show Wireframe {/if}
-        </button>
+        </button> -->
 
-        <canvas bind:this={canvas}></canvas> -->
+        <canvas bind:this={canvas}></canvas>
 
     </body>
 

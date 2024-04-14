@@ -15,8 +15,7 @@ class World {
     constructor(container) {
         camera = createCamera();
         scene = createScene();
-        renderer = createRenderer();
-        container.append(renderer.domElement);
+        renderer = createRenderer(container);
 
         const octahedron = createOctahedron();
 
