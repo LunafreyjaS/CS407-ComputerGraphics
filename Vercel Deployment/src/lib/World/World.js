@@ -2,10 +2,13 @@
 
 import { createCamera } from './components/camera.js';
 import { createOctahedron } from './components/octahedron.js';
+import { createTorus } from './components/torus.js';
 import { createScene } from './components/scene.js';
 
 import { createRenderer } from './systems/renderer.js';
 import {Resizer} from './systems/Resizer.js';
+
+import * as THREE from 'three';
 
 let camera, renderer, scene;
 
