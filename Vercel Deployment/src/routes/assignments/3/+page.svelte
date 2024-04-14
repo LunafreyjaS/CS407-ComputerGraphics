@@ -5,7 +5,6 @@
 
     import { onMount } from 'svelte';
     import {World} from '$lib/World/World.js';
-    import { PointLight } from 'three';
 
     let canvas;
     let world = null;
@@ -31,6 +30,15 @@
             {#if World.isLighting} Swap for Point Lighting {/if}
             {#if !World.isLighting} Swap for Directional Lighting {/if}
         </button>
+        
+        <br>
+
+        <button on:click={World.moveTorus("up")}>Up</button>
+        <br>
+        <button on:click={World.moveTorus("left")}>Left</button>
+        <button on:click={World.moveTorus("right")}>Right</button>
+        <br>
+        <button on:click={World.moveTorus("down")}>Down</button>
 
         <!-- <button on:click={toggleAnimation}>
             {#if isAnimating} Stop Animation {/if}

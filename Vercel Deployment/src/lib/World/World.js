@@ -71,6 +71,20 @@ class World {
 
     }
 
+    //4. Move torusHex
+    moveTorusHex(direction) {
+        let torusHex = scene.getObjectByName('torusHex');
+        
+        if(direction == "left")
+            torusHex.position.x -= 1;
+        else if(direction == "right")
+            torusHex.position.x += 1;
+        else if(direction == "up")
+            torusHex.position.y += 1;
+        else if(direction == "down")
+            torusHex.position.y -= 1;
+    }
+
 }
     
     export { World };
