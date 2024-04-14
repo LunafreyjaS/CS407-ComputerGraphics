@@ -87,4 +87,4 @@ class World {
 
 }
     
-    export { World };
+    export { World, moveTorusHex, lightingSwap};
