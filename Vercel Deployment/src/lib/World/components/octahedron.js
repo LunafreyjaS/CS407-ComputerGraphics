@@ -1,4 +1,4 @@
-import { OctahedronGeometry, Mesh, MeshBasicMaterial } from 'three';
+import { OctahedronGeometry, Mesh, MeshBasicMaterial, Color } from 'three';
 
 function createOctahedron() {
   // create a geometry

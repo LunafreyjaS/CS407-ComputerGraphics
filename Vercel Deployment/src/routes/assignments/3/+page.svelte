@@ -11,6 +11,7 @@
 
     onMount(() => {
         world = new World(canvas);
+
         world.render();
     });
 
