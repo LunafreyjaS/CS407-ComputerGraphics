@@ -28,6 +28,11 @@
 
         <div id="scene-container"></div>
 
+        <button on:click={World.lightingSwap}>
+            {#if World.isLighting} Turn Off Lighting {/if}
+            {#if !World.isLighting} Turn On Lighting {/if}
+        </button>
+
         <!-- <button on:click={toggleAnimation}>
             {#if isAnimating} Stop Animation {/if}
             {#if !isAnimating} Start Animation {/if}

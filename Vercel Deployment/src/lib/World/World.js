@@ -11,7 +11,7 @@ import {Resizer} from './systems/Resizer.js';
 
 import {Color} from 'three';
 
-let camera, renderer, scene;
+let camera, renderer, scene, isLighting;
 
 
 class World {
@@ -31,11 +31,15 @@ class World {
         torusHex.material.color = new Color('red');
 
         const pointLight = createPointLight();
-        pointLight.position.set(0, 10, 0);
+        pointLight.position.set(0, 7, 0);
+        pointLight.intensity = 3;
         pointLight.color = new Color('blue');
 
         const directionalLight = createDirectionalLight();
         directionalLight.position.set(-10, 10, -10);
+        directionalLight.intensity = 1.5;
+
+        isLighting = true;
 
         scene.add(octahedron);
         scene.add(torusHex);
@@ -53,7 +57,18 @@ class World {
     //3. Dynamic Lighting
     lightingSwap() {
     
-    
+        let pointLight = scene.getObjectByName('pointLight');
+        let directionalLight = scene.getObjectByName('directionalLight');
+        
+        if (isLighting) {
+            pointLight.intensity = 0;
+            directionalLight.intensity = 0;
+            isLighting = false;
+        } else {
+            pointLight.intensity = 3;
+            directionalLight.intensity = 1.5;
+            isLighting = true;
+        }
 
     }
 
