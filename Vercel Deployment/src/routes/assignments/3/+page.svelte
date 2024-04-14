@@ -4,7 +4,7 @@
     export let data;
 
     import { onMount } from 'svelte';
-    import {World, lightingSwap, moveTorusHex} from '$lib/World/World.js';
+    import {World} from '$lib/World/World.js';
 
     let canvas;
     let world = null;
@@ -28,19 +28,19 @@
 
         <div id="scene-container"></div>
 
-        <button on:click={lightingSwap}>
-            {#if World.isLighting} Swap for Point Lighting {/if}
-            {#if !World.isLighting} Swap for Directional Lighting {/if}
+        <button on:click={world.lightingSwap}>
+            {#if world.isLighting} Swap for Point Lighting {/if}
+            {#if !world.isLighting} Swap for Directional Lighting {/if}
         </button>
         
         <br>
 
-        <button on:click={moveTorusHex("up")}>Up</button>
+        <button on:click={world.moveTorusHex("up")}>Up</button>
         <br>
-        <button on:click={moveTorusHex("left")}>Left</button>
-        <button on:click={moveTorusHex("right")}>Right</button>
+        <button on:click={world.moveTorusHex("left")}>Left</button>
+        <button on:click={world.moveTorusHex("right")}>Right</button>
         <br>
-        <button on:click={moveTorusHex("down")}>Down</button>
+        <button on:click={world.moveTorusHex("down")}>Down</button>
 
 
 
