@@ -27,15 +27,16 @@ class World {
 
         const octahedron = createOctahedron();
         octahedron.material.color = new Color('purple');
+        //octahedron.material.emissive = new Color('purple');
 
         torusHex = createTorus();
         torusHex.material.color = new Color('red');
 
         pointLight = createPointLight();
-        pointLight.position.set(0, 8, 1);
+        pointLight.position.set(1.5, 3, 1);
         pointLight.intensity = 0;
-        pointLight.decay = 20;
-        pointLight.distance = 200;
+        pointLight.decay = 1.5;
+        pointLight.distance = 2000;
         pointLight.color = new Color('blue');
 
         directionalLight = createDirectionalLight();
@@ -59,11 +60,11 @@ class World {
     //3. Dynamic Lighting
     lightingSwap() {
         
-        if (pointLight.intensity > 0) {
-            pointLight.intensity = 0;
+        if (pointLight.power > 0) {
+            pointLight.power = 0;
             directionalLight.intensity = 5;
         } else {
-            pointLight.intensity = 400;
+            pointLight.power = 5000;
             directionalLight.intensity = 0;
         }
 

@@ -1,7 +1,7 @@
 <script>
 
     import { onMount } from 'svelte';
-    import {World} from '$lib/World/World.js';
+    import { World } from './World/World.js'
 
     let canvas;
     let world = null;
@@ -47,7 +47,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
     </head>
     <body>
-        <h2>Luna's Placeholder Name</h2>
+        <h2>Luna's Lit-Up World!</h2>
 
         <div id="scene-container"></div>
 
