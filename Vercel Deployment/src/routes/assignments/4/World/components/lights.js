@@ -14,7 +14,7 @@ function createDirectionalLight() {
 
 function createPointLight() {
   // Create a point light
-  const light = new PointLight("#cb3434", 0.5, 0, 0.5);
+  const light = new PointLight("#cb3434", 2, 0, 0.1);
   light.castShadow = true;
 
   return light;

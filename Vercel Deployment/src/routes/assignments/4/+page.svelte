@@ -11,7 +11,32 @@
         world = new World(canvas);
 
         world.render();
+
+        canvas.addEventListener('wheel', (e) => {
+            e.preventDefault();
+
+            if (e.deltaY < 0) {
+                world.zoomCamera("in");
+            } else {
+                world.zoomCamera("out");
+            }
+        });
+
     });
+
+    onkeydown = function(e) {
+        if (e.key === "w") {
+            world.rotateCylinder("up");
+        } else if (e.key === "a") {
+            world.rotateCylinder("left");
+        } else if (e.key === "s") {
+            world.rotateCylinder("down");
+        } else if (e.key === "d") {
+            world.rotateCylinder("right");
+        }
+    }
+
+
 
 </script>
 
@@ -31,15 +56,9 @@
             {#if !isLighting} Swap for Directional Lighting {/if}
         </button>
         
-        <br>
+        <br> -->
 
-        <button on:click={moveUp}>Up</button>
-        <br>
-        <button on:click={moveLeft}>Left</button>
-        <button on:click={moveRight}>Right</button>
-        <br>
-        <button on:click={moveDown}>Down</button> -->
-
+        <p> Press WASD to rotate the lamp.</p>
 
         <canvas bind:this={canvas}></canvas>
 

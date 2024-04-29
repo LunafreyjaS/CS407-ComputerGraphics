@@ -21,9 +21,13 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { ShaderMaterial } from 'three';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
+import { Vector3 } from 'three';
 
 let camera, renderer, scene;
 let directionalLight;
+let cylinderGroup;
+let rotationY = 0;
+let rotationX = 0;
 let bloomComposer, finalComposer
 //Let other shapes
 
@@ -47,9 +51,11 @@ class World {
 
         const bloomPass = new UnrealBloomPass(new Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
         bloomPass.threshold = 0;
-        bloomPass.strength = 0.5;
-        bloomPass.radius = 0.2;
-        bloomPass.exposure = 1;
+        bloomPass.strength = 1;
+        bloomPass.radius = 0.5;
+        bloomPass.exposure = 0.5;
+        bloomPass.enabled = true;
+        //bloomPass.selectedObjects = scene.children.filter(obj => obj.layers.test(BLOOM_SCENE));
 
         bloomComposer = new EffectComposer(renderer);
         bloomComposer.renderToScreen = false;
@@ -60,14 +66,14 @@ class World {
 
         finalComposer = new EffectComposer(renderer);
         finalComposer.addPass(renderScene);
-        finalComposer.addPass(bloomPass);
+        //finalComposer.addPass(bloomPass);
         finalComposer.addPass(outputPass);
 
         const raycaster = new Raycaster();
                     
 
         //Create shapes
-        const cylinderGroup = new Group();
+        cylinderGroup = new Group();
 
         const cylinderConeTop = createCylinderConeTop();
         cylinderConeTop.material.color = new Color('darkslategrey');
@@ -85,65 +91,76 @@ class World {
         cylinderGroup.add(cylinderConeMiddle);
         cylinderGroup.add(cylinderConeBottom);
 
-        const smallSphere1 = createSmallSphere();
-        smallSphere1.position.set(-2, 5, 0);
+        const spherePositions = [
+            new Vector3(-2, 5, 0),
+            new Vector3(1, 3.5, 2),
+            new Vector3(3.5, 1, -3),
+            new Vector3(-1, 1, 1.5),
+            new Vector3(-3, -2, 2),
+            new Vector3(2.5, -5, -1.5)
+        ];
 
-        const smallSphere2 = createSmallSphere();
-        smallSphere2.position.set(1, 3.5, 2);
+        const spheres = spherePositions.map((position, index) => {
+            let sphere;
+            if (index < 3) {
+                // Create small spheres for the first 3 positions
+                sphere = createSmallSphere();
+            } else if (index < 5) {
+                // Create medium spheres for positions 3 and 4
+                sphere = createMediumSphere();
+            } else {
+                // Create a large sphere for the last position
+                sphere = createLargeSphere();
+            }
+            sphere.position.copy(position);
+            cylinderConeMiddle.add(sphere); // Add spheres as children of cylinderConeMiddle
+            return sphere;
+        });
 
-        const smallSphere3 = createSmallSphere();
-        smallSphere3.position.set(3.5, 1, -3);
+ 
 
-        const mediumSphere1 = createMediumSphere();
-        mediumSphere1.position.set(-1, 1, 1.5);
-
-        const mediumSphere2 = createMediumSphere();
-        mediumSphere2.position.set(-3, -2, 2);
-
-        const largeSphere = createLargeSphere();
-        largeSphere.position.set(2.5, -5, -1.5);
-
-        cylinderConeMiddle.add(smallSphere1);
-        cylinderConeMiddle.add(smallSphere2);
-        cylinderConeMiddle.add(smallSphere3);
-        cylinderConeMiddle.add(mediumSphere1);
-        cylinderConeMiddle.add(mediumSphere2);
-        cylinderConeMiddle.add(largeSphere);
 
         const pointLightSS1 = createPointLight();
         pointLightSS1.position.set(-2, 5, 0);
-        smallSphere1.attach(pointLightSS1);
+        spheres[0].attach(pointLightSS1);
 
         const pointLightSS2 = createPointLight();
         pointLightSS2.position.set(1, 3.5, 2);
-        smallSphere2.attach(pointLightSS2);
+        spheres[1].attach(pointLightSS2);
 
         const pointLightSS3 = createPointLight();
         pointLightSS3.position.set(3.5, 1, -3);
-        smallSphere3.attach(pointLightSS3);
+        spheres[2].attach(pointLightSS3);
 
         const pointLightMS1 = createPointLight();
         pointLightMS1.position.set(-1, 1, 1.5);
-        mediumSphere1.attach(pointLightMS1);
+        spheres[3].attach(pointLightMS1);
 
         const pointLightMS2 = createPointLight();
         pointLightMS2.position.set(-3, -2, 2);
-        mediumSphere2.attach(pointLightMS2);
+        spheres[4].attach(pointLightMS2);
 
         const pointLightLS = createPointLight();
         pointLightLS.position.set(2.5, -5, -1.5);
-        largeSphere.attach(pointLightLS);
+        spheres[5].attach(pointLightLS);
+
+        // smallSphere1.layers.set(BLOOM_SCENE);
+        // smallSphere2.layers.set(BLOOM_SCENE);
+        // smallSphere3.layers.set(BLOOM_SCENE);
+        // mediumSphere1.layers.set(BLOOM_SCENE);
+        // mediumSphere2.layers.set(BLOOM_SCENE);
+        // largeSphere.layers.set(BLOOM_SCENE);
 
         directionalLight = createDirectionalLight();
         directionalLight.position.set(-10, 10, 10);
         directionalLight.lookAt(0, 0, 0);
-        directionalLight.intensity = 0;
+        directionalLight.intensity = 2;
 
         //Add scene items
         scene.add(directionalLight);
         scene.add(cylinderGroup);
 
-        const resizer = new Resizer(container, camera, renderer, bloomComposer, finalComposer, raycaster, scene, bloomLayer, cylinderGroup, directionalLight, smallSphere1, smallSphere2, smallSphere3, mediumSphere1, mediumSphere2, largeSphere, pointLightSS1, pointLightSS2, pointLightSS3, pointLightMS1, pointLightMS2, pointLightLS, cylinderConeTop, cylinderConeMiddle, cylinderConeBottom);
+        const resizer = new Resizer(container, camera, renderer, bloomComposer, finalComposer, raycaster, scene, bloomLayer, cylinderGroup, directionalLight,  pointLightSS1, pointLightSS2, pointLightSS3, pointLightMS1, pointLightMS2, pointLightLS, cylinderConeTop, cylinderConeMiddle, cylinderConeBottom);
     }
     
     // 2. Render the scene
@@ -152,6 +169,43 @@ class World {
         bloomComposer.render();
 
         finalComposer.render(scene, camera);
+    }
+
+    rotateCylinder(direction) {
+
+        const rotationSpeed = 0.1;
+        
+        if(direction == "left"){
+            rotationY -= rotationSpeed;
+            cylinderGroup.rotation.set(rotationX, rotationY, 0);
+        }
+        else if(direction == "right"){
+            rotationY += rotationSpeed;
+            cylinderGroup.rotation.set(rotationX, rotationY, 0); 
+        }
+        else if(direction == "up"){
+            rotationX += rotationSpeed;
+            cylinderGroup.rotation.set(rotationX, rotationY, 0);
+        }
+        else if(direction == "down"){
+            rotationX -= rotationSpeed;
+            cylinderGroup.rotation.set(rotationX, rotationY, 0);
+        }
+
+        this.render();
+    }
+
+    zoomCamera(direction) {
+    
+        const zoomAmount = 1;
+        if(direction == "in")
+            camera.position.z -= zoomAmount;
+        else if(direction == "out")
+            camera.position.z += zoomAmount;
+
+        camera.lookAt(0, 0, 0);
+
+        this.render();
     }
 
 }
