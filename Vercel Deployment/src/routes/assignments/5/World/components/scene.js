@@ -1,11 +1,14 @@
 // Code from three.js documentation
 
-import { Color, Scene } from 'three';
+import { Color, Scene, TextureLoader } from 'three';
+import Sky from '../components/sky.jpg';
 
 function createScene() {
   const scene = new Scene();
 
-  scene.background = new Color('skyblue');
+  const skyTexture = new TextureLoader().load(Sky);
+
+  scene.background = skyTexture;
 
   return scene;
 }
