@@ -13,6 +13,8 @@
     <a href="/assignments/3">Assignment 3: World Test</a>
     <br>
     <a href="/assignments/4">Assignment 4: Child Objects</a>
+    <br>
+    <a href="/assignments/5">Assignment 5: Color By Vertex</a>
 </section>
 
 <style>
