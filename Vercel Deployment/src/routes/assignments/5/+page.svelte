@@ -39,6 +39,10 @@
 
         <canvas bind:this={canvas}></canvas>
 
+        <img src="https://i.redd.it/lzmbulysouoc1.jpeg" alt="Kiwi" width="300" height="300">
+
+    </body>
+
     </section>
     
     <style>
