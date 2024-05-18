@@ -18,12 +18,8 @@ import { ShaderMaterial } from 'three';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import { Vector3 } from 'three';
 
-import {Parachute} from './components/parachute.js';
-import {createKiwi} from './components/kiwi.js';
-
 let camera, renderer, scene;
 let directionalLight;
-let group, parachuteShape, kiwiShape;
 let rotationY = 0;
 let rotationX = 0;
 let bloomComposer, finalComposer
@@ -71,15 +67,7 @@ class World {
                     
 
         //Create shapes
-        group = new Group();
-        parachuteShape = new Parachute();
-        kiwiShape = createKiwi();
 
-        group.add(parachuteShape);
-        group.add(kiwiShape);
-
-        kiwiShape.position.set(0, -3, -2);
-        kiwiShape.rotation.set(0.7, -3, 0);
 
         //Create lighting
 
@@ -89,7 +77,7 @@ class World {
         directionalLight.intensity = 2;
 
         //Add scene items
-        scene.add(group);
+
         scene.add(directionalLight);
 
         const resizer = new Resizer(container, camera, renderer, scene, directionalLight);
@@ -101,30 +89,30 @@ class World {
         renderer.render(scene, camera);
     }
 
-    rotateParachute(direction) {
+    // rotateParachute(direction) {
 
-        const rotationSpeed = 0.1;
-        console.log(direction);
+    //     const rotationSpeed = 0.1;
+    //     console.log(direction);
         
-        if(direction == "left"){
-            rotationY -= rotationSpeed;
-            group.rotation.set(rotationX, rotationY, 0);
-        }
-        else if(direction == "right"){
-            rotationY += rotationSpeed;
-            group.rotation.set(rotationX, rotationY, 0); 
-        }
-        else if(direction == "up"){
-            rotationX += rotationSpeed;
-            group.rotation.set(rotationX, rotationY, 0);
-        }
-        else if(direction == "down"){
-            rotationX -= rotationSpeed;
-            group.rotation.set(rotationX, rotationY, 0);
-        }
+    //     if(direction == "left"){
+    //         rotationY -= rotationSpeed;
+    //         group.rotation.set(rotationX, rotationY, 0);
+    //     }
+    //     else if(direction == "right"){
+    //         rotationY += rotationSpeed;
+    //         group.rotation.set(rotationX, rotationY, 0); 
+    //     }
+    //     else if(direction == "up"){
+    //         rotationX += rotationSpeed;
+    //         group.rotation.set(rotationX, rotationY, 0);
+    //     }
+    //     else if(direction == "down"){
+    //         rotationX -= rotationSpeed;
+    //         group.rotation.set(rotationX, rotationY, 0);
+    //     }
 
-        this.render();
-    }
+    //     this.render();
+    // }
 
     zoomCamera(direction) {
     

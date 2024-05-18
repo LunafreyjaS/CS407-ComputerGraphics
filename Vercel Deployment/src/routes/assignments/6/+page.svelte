@@ -11,17 +11,17 @@
 
         world.render();
 
-        window.addEventListener('keydown', (e) => {
-            if (e.key === "w") {
-                world.rotateParachute("up");
-            } else if (e.key === "a") {
-                world.rotateParachute("left");
-            } else if (e.key === "s") {
-                world.rotateParachute("down");
-            } else if (e.key === "d") {
-                world.rotateParachute("right");
-            }
-        });
+        // window.addEventListener('keydown', (e) => {
+        //     if (e.key === "w") {
+        //         world.rotateParachute("up");
+        //     } else if (e.key === "a") {
+        //         world.rotateParachute("left");
+        //     } else if (e.key === "s") {
+        //         world.rotateParachute("down");
+        //     } else if (e.key === "d") {
+        //         world.rotateParachute("right");
+        //     }
+        // });
     });
 
 </script>
@@ -29,17 +29,15 @@
 <section>
 
     <head>
-        <title>Assignment 5: Color By Vector</title>
+        <title>Assignment 6: Import Model w/ Animation</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
     </head>
     <body>
-        <h2>Luna's Kiwi Adventure</h2>
+        <h2>Luna's Imported Model</h2>
 
         <div id="scene-container"></div>
 
         <canvas bind:this={canvas}></canvas>
-
-        <img src="https://i.redd.it/lzmbulysouoc1.jpeg" alt="Kiwi" width="300" height="300">
 
     </body>
 

@@ -15,6 +15,8 @@
     <a href="/assignments/4">Assignment 4: Child Objects</a>
     <br>
     <a href="/assignments/5">Assignment 5: Color By Vertex</a>
+    <br>
+    <a href="/assignments/6">Assignment 6: Imported Model w/ Animation</a>
 </section>
 
 <style>
