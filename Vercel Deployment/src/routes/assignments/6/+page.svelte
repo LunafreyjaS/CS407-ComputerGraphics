@@ -9,19 +9,9 @@
     onMount(() => {
         world = new World(canvas);
 
-        world.render();
+        world.init();
+        world.start();
 
-        // window.addEventListener('keydown', (e) => {
-        //     if (e.key === "w") {
-        //         world.rotateParachute("up");
-        //     } else if (e.key === "a") {
-        //         world.rotateParachute("left");
-        //     } else if (e.key === "s") {
-        //         world.rotateParachute("down");
-        //     } else if (e.key === "d") {
-        //         world.rotateParachute("right");
-        //     }
-        // });
     });
 
 </script>
@@ -38,6 +28,8 @@
         <div id="scene-container"></div>
 
         <canvas bind:this={canvas}></canvas>
+
+        <p>This work is based on "Azeria" (https://sketchfab.com/3d-models/azeria-6d4aff07356e409396872111bc97858f) by hurkomendiguren (https://sketchfab.com/hurkomendiguren) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)</p>
 
     </body>
 

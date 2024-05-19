@@ -5,6 +5,7 @@ import { createScene } from './components/scene.js';
 import { createDirectionalLight, createPointLight } from './components/lights.js';
 import { createRenderer } from './systems/renderer.js';
 import {Resizer} from './systems/Resizer.js';
+import {Loop} from './systems/Loop.js';
 
 import {Color, Raycaster} from 'three';
 import { Group } from 'three';
@@ -17,56 +18,32 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { ShaderMaterial } from 'three';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import { Vector3 } from 'three';
+ 
+import { createGround } from './components/ground.js';
+import { createFox } from './components/fox.js';
 
-let camera, renderer, scene;
+let camera, renderer, scene, loop;
 let directionalLight;
 let rotationY = 0;
 let rotationX = 0;
-let bloomComposer, finalComposer
 //Let other shapes
-
+let ground, fox;
 
 class World {
     // 1. Create an instance of the World app
     constructor(container) {
         camera = createCamera();
-        camera.position.set(0, 20, -20);
-        camera.lookAt(0, 0, 0);
+        camera.position.set(0, 6, -2);
+        camera.lookAt(0, -10, 1000);
 
         scene = createScene();
         renderer = createRenderer(container);
 
-        // Bloom Render, partially taken from https://github.com/mrdoob/three.js/blob/master/examples/webgl_postprocessing_unreal_bloom_selective.html
-        // const BLOOM_SCENE = 1;
-        // const bloomLayer = new Layers();
-        // bloomLayer.set(BLOOM_SCENE);
-
-        // const renderScene = new RenderPass(scene, camera);
-
-        // const bloomPass = new UnrealBloomPass(new Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
-        // bloomPass.threshold = 0;
-        // bloomPass.strength = 1;
-        // bloomPass.radius = 0.5;
-        // bloomPass.exposure = 0.5;
-        // bloomPass.enabled = true;
-        //bloomPass.selectedObjects = scene.children.filter(obj => obj.layers.test(BLOOM_SCENE));
-
-        // bloomComposer = new EffectComposer(renderer);
-        // bloomComposer.renderToScreen = false;
-        // bloomComposer.addPass(renderScene);
-        // bloomComposer.addPass(bloomPass);
-
-        // const outputPass = new OutputPass();
-
-        // finalComposer = new EffectComposer(renderer);
-        // finalComposer.addPass(renderScene);
-        // //finalComposer.addPass(bloomPass);
-        // finalComposer.addPass(outputPass);
-
-        // const raycaster = new Raycaster();
-                    
+        loop = new Loop(camera, scene, renderer);
 
         //Create shapes
+
+        const ground = createGround();
 
 
         //Create lighting
@@ -78,53 +55,96 @@ class World {
 
         //Add scene items
 
+        scene.add(ground);
         scene.add(directionalLight);
 
         const resizer = new Resizer(container, camera, renderer, scene, directionalLight);
     }
     
+    async init(){
+        fox = await createFox();
+
+        //fox.position.set(0, 1, 5);
+        camera.add(fox);
+
+        loop.addUpdateable(fox);
+        loop.fox = fox;
+
+        // scene.add(fox);
+        scene.add(camera);
+    }
+
+
     // 2. Render the scene
     render() {
 
         renderer.render(scene, camera);
     }
 
-    // rotateParachute(direction) {
+    start(){
+        loop.start();
+    }
 
-    //     const rotationSpeed = 0.1;
-    //     console.log(direction);
-        
-    //     if(direction == "left"){
-    //         rotationY -= rotationSpeed;
-    //         group.rotation.set(rotationX, rotationY, 0);
-    //     }
-    //     else if(direction == "right"){
-    //         rotationY += rotationSpeed;
-    //         group.rotation.set(rotationX, rotationY, 0); 
-    //     }
-    //     else if(direction == "up"){
-    //         rotationX += rotationSpeed;
-    //         group.rotation.set(rotationX, rotationY, 0);
-    //     }
-    //     else if(direction == "down"){
-    //         rotationX -= rotationSpeed;
-    //         group.rotation.set(rotationX, rotationY, 0);
-    //     }
+    stop(){
+        loop.stop();
+    }
 
-    //     this.render();
-    // }
+    getFrameRate() {
+        return loop.getFrameRate();
+    }
 
-    zoomCamera(direction) {
-    
-        const zoomAmount = 1;
-        if(direction == "in")
-            camera.position.z -= zoomAmount;
-        else if(direction == "out")
-            camera.position.z += zoomAmount;
+    toggleAnimation(){
+        loop.animate = !loop.animate;
+    }
 
-        camera.lookAt(0, 0, 0);
+    initControls() {
+        window.addEventListener('keydown', (event) => {
+            keys[event.key] = true;
+            this.updateMovement();
+        });
 
-        this.render();
+        window.addEventListener('keyup', (event) => {
+            keys[event.key] = false;
+            this.updateMovement();
+        });
+    }
+
+    updateMovement() {
+        if (keys['w'] && keys['Shift']) {
+            this.playRun();
+        } else if (keys['w']) {
+            this.playWalk();
+        } else if (keys['s']) {
+            this.playWalk();
+        } else {
+            this.playSurvey();
+        }
+
+        if (keys['a']) {
+            rotationY += 0.1;
+        } else if (keys['d']) {
+            rotationY -= 0.1;
+        }
+    }
+
+    playWalk() {
+        if (fox && fox.playWalk) {
+            fox.playWalk();
+        }
+        camera.position.z -= 0.1;
+    }
+
+    playRun() {
+        if (fox && fox.playRun) {
+            fox.playRun();
+        }
+        camera.position.z -= 0.2;
+    }
+
+    playSurvey() {
+        if (fox && fox.playSurvey) {
+            fox.playSurvey();
+        }
     }
 
 }
