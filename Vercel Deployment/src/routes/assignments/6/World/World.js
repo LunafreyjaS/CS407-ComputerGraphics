@@ -6,6 +6,7 @@ import { createDirectionalLight, createPointLight } from './components/lights.js
 import { createRenderer } from './systems/renderer.js';
 import {Resizer} from './systems/Resizer.js';
 import {Loop} from './systems/Loop.js';
+import {cameraOrbit } from './systems/orbit.js';
 
 import {Color, Raycaster} from 'three';
 import { Group } from 'three';
@@ -22,7 +23,7 @@ import { Vector3 } from 'three';
 import { createGround } from './components/ground.js';
 import { createFox } from './components/fox.js';
 
-let camera, renderer, scene, loop;
+let camera, renderer, scene, loop, controls;
 let directionalLight;
 let rotationY = 0;
 let rotationX = 0;
@@ -35,8 +36,11 @@ class World {
     // 1. Create an instance of the World app
     constructor(container) {
         camera = createCamera();
-        camera.position.set(0, 5, -3);
-        camera.lookAt(0, -10, 1000);
+        camera.position.set(0, 4, -3);
+        //camera.lookAt(0, -10, 1000);
+
+        controls = cameraOrbit(camera, container);
+        camera.lookAt(0, 0, 10);
 
         scene = createScene();
         renderer = createRenderer(container);
@@ -66,7 +70,7 @@ class World {
     async init(){
         fox = await createFox();
 
-        fox.position.set(0, 1, 10);
+        fox.position.set(0, 0, 10);
         fox.scale.set(0.03, 0.03, 0.03);
         //fox.add(camera);
 
