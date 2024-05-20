@@ -5,12 +5,18 @@
 
     let canvas;
     let world = null;
+    let fps;
 
     onMount(() => {
         world = new World(canvas);
 
         world.init();
         world.start();
+        world.initControls();
+
+        setInterval(() => {
+            fps = world.getFrameRate();            
+        }, 2000);
 
     });
 
@@ -27,9 +33,12 @@
 
         <div id="scene-container"></div>
 
+        <code>{Math.round(fps)} FPS</code>
+
         <canvas bind:this={canvas}></canvas>
 
         <p>This work is based on "Azeria" (https://sketchfab.com/3d-models/azeria-6d4aff07356e409396872111bc97858f) by hurkomendiguren (https://sketchfab.com/hurkomendiguren) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)</p>
+
 
     </body>
 

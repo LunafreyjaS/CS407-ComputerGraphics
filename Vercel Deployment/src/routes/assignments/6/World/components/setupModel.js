@@ -36,7 +36,7 @@ function setupModel(data) {
         walkAction.stop();
     }
     
-    return { model };
+    return model;
     }
 
 export { setupModel };

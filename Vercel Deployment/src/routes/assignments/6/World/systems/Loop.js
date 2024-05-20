@@ -1,52 +1,49 @@
 import { Clock, PerspectiveCamera, WebGLRenderer, Scene, Object3D } from "three";
 //import { Animatable } from "./Animateable";
 
-export class Loop {
+const clock = new Clock();
 
-    animate = true;
-
+class Loop {
     constructor(camera, scene, renderer) {
         this.camera = camera;
         this.scene = scene;
         this.renderer = renderer;
-        this.updateables = [];
-        this.clock = new Clock();
-        this.delta = 0;
-        this.fox = [];
+        this.updatables = [];
     }
 
     start() {
-        this.delta = this.clock.getDelta();
         this.renderer.setAnimationLoop(() => {
-            this.tick();
-            this.renderer.render(this.scene, this.camera);
+        // tell every animated object to tick forward one frame
+        this.tick();
+
+        // render a frame
+        this.renderer.render(this.scene, this.camera);
         });
     }
 
     stop() {
         this.renderer.setAnimationLoop(null);
-        this.delta = 0;
     }
 
-    addUpdateable(item) {
-        this.updateables.push(item);
-    }
+  tick() {
+    // only call the getDelta function once per frame!
+    const delta = clock.getDelta();
 
-    removeUpdateable(item) {
-        const index = this.updateables.indexOf(item);
-        if (index !== -1) {
-            this.updateables.splice(index, 1);
+    // console.log(
+    //   `The last frame rendered in ${delta * 1000} milliseconds`,
+    // );
+
+        for (const object of this.updatables) {
+        object.tick(delta);
         }
     }
 
-    tick() {
-        this.delta = this.clock.getDelta();
+    addUpdateable(object) {
+        this.updatables.push(object);
+    }
 
-        if(this.animate){
-            for (const item of this.updateables) {
-                item.tick(this.delta);
-            }
-        }
+    removeUpdateable(object) {
+        this.updatables = this.updatables.filter((updatable) => updatable !== object);
     }
 
     playSurvey() {
@@ -66,3 +63,5 @@ export class Loop {
         return 1 / this.delta;
     }
 }
+
+export { Loop };

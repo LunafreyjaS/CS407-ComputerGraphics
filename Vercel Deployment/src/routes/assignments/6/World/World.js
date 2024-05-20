@@ -26,14 +26,16 @@ let camera, renderer, scene, loop;
 let directionalLight;
 let rotationY = 0;
 let rotationX = 0;
+let rotationZ = 0;
 //Let other shapes
 let ground, fox;
+let keys = {};
 
 class World {
     // 1. Create an instance of the World app
     constructor(container) {
         camera = createCamera();
-        camera.position.set(0, 6, -2);
+        camera.position.set(0, 5, -3);
         camera.lookAt(0, -10, 1000);
 
         scene = createScene();
@@ -64,13 +66,15 @@ class World {
     async init(){
         fox = await createFox();
 
-        //fox.position.set(0, 1, 5);
-        camera.add(fox);
+        fox.position.set(0, 1, 10);
+        fox.scale.set(0.03, 0.03, 0.03);
+        //fox.add(camera);
 
         loop.addUpdateable(fox);
         loop.fox = fox;
+        fox.playSurvey();
 
-        // scene.add(fox);
+        scene.add(fox);
         scene.add(camera);
     }
 
@@ -101,11 +105,13 @@ class World {
         window.addEventListener('keydown', (event) => {
             keys[event.key] = true;
             this.updateMovement();
+            this.render();
         });
 
         window.addEventListener('keyup', (event) => {
             keys[event.key] = false;
             this.updateMovement();
+            this.render();
         });
     }
 
@@ -113,32 +119,49 @@ class World {
         if (keys['w'] && keys['Shift']) {
             this.playRun();
         } else if (keys['w']) {
-            this.playWalk();
+            this.playWalkForward();
         } else if (keys['s']) {
-            this.playWalk();
+            this.playWalkBackward();
         } else {
             this.playSurvey();
         }
 
         if (keys['a']) {
-            rotationY += 0.1;
+            rotationZ += 0.1;
+            fox.rotation.z = rotationZ;
+            //camera.rotation.y = -rotationZ/2;
         } else if (keys['d']) {
-            rotationY -= 0.1;
+            rotationZ -= 0.1;
+            fox.rotation.z = rotationZ;
+            //camera.rotation.y = -rotationZ/2;
         }
     }
 
-    playWalk() {
+    playWalkForward() {
         if (fox && fox.playWalk) {
             fox.playWalk();
         }
-        camera.position.z -= 0.1;
+        fox.position.x += 0.2 * Math.sin(fox.rotation.z);
+        fox.position.z += 0.2 * Math.cos(fox.rotation.z);
+        //camera.position.z += 0.1;
+    }
+
+    playWalkBackward() {
+        if (fox && fox.playWalk) {
+            fox.playWalk();
+        }
+        fox.position.x -= 0.2 * Math.sin(fox.rotation.z);
+        fox.position.z -= 0.2 * Math.cos(fox.rotation.z);
+        //camera.position.z -= 0.1;
     }
 
     playRun() {
         if (fox && fox.playRun) {
             fox.playRun();
         }
-        camera.position.z -= 0.2;
+        fox.position.x += 0.3 * Math.sin(fox.rotation.z);
+        fox.position.z += 0.3 * Math.cos(fox.rotation.z);
+        //camera.position.z += 0.2;
     }
 
     playSurvey() {

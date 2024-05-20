@@ -11,4 +11,5 @@ async function createFox() {
     return fox;
 }
 
+
 export { createFox };
