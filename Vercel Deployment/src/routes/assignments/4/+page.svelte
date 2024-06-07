@@ -62,6 +62,17 @@
 
         <canvas bind:this={canvas}></canvas>
 
+        <article class="description">
+            <p>The goal of this assignment is to create a simple scene using a hierarchical scene graph as shown in <a href="https://discoverthreejs.com/book/first-steps/transformations/">Transformations, Coordinate Systems, and the Scene Graph</a> in the Discover three.js book.</p>  Requirements are:
+            <ul>
+                <li>Construct a compound model composed of a primary object and multiple child objects</li>
+                <li>Place those child objects relative to the parent using transformations, at least one of which we create manually using vector or matrix algebra</li>
+                <li>Have interactivity that moves both the entire object as well as the children</li>
+            </ul>
+            <p>For the axes: X (red), Y (green) and Z (blue)</p>
+            <p>Keyboard controls: WASD (rotates the child objects about their own local origin)  Only works if the canvas element has focus.  Click it if key press doesn't do anything.</p>
+        </article>
+
 </section>
 
 <style>

@@ -37,9 +37,22 @@
 
         <div id="scene-container"></div>
 
+        <p>WASD to control object rotation, mouse to for camera orbit</p>
+
         <canvas bind:this={canvas}></canvas>
 
         <img src="https://i.redd.it/lzmbulysouoc1.jpeg" alt="Kiwi" width="300" height="300">
+
+
+        <article class="description">
+            <p>The goal of this assignment is to learn how geometries are organized, represented and delivered to OpenGL and the graphics card.</p>  <p>Requirements are:</p>
+            <ul>
+                <li>Construct a custom geometry object manually by specifying vertices and faces in an indexed buffer geometry.</li>
+                <li>Use per-vertex colors so we can pass custom attribute data to the vertex shader</li>
+                <li>Implement orbit and optionally camera navigation through the scene</li>
+            </ul>
+            <p>Use the mouse to orbit and pan the camera: left mouse click (hold down) or single finger swipe to orbit, right mouse click (hold down), arrow keys, or two-finger swipe to pan; zoom with the scroll wheel or pinch gesture.</p>
+        </article>
 
     </body>
 

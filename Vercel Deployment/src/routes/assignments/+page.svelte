@@ -17,6 +17,10 @@
     <a href="/assignments/5">Assignment 5: Color By Vertex</a>
     <br>
     <a href="/assignments/6">Assignment 6: Imported Model w/ Animation</a>
+    <br>
+    <a href="/assignments/7">Assignment 7: Shader Test</a>
+    <br>
+    <a href="/assignments/Final">Final Project</a>
 </section>
 
 <style>

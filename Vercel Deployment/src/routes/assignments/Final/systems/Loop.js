@@ -9,7 +9,6 @@ class Loop {
         this.scene = scene;
         this.renderer = renderer;
         this.updatables = [];
-        this.delta = 0;
     }
 
     start() {
@@ -28,14 +27,14 @@ class Loop {
 
   tick() {
     // only call the getDelta function once per frame!
-    this.delta = clock.getDelta();
+    const delta = clock.getDelta();
 
     // console.log(
     //   `The last frame rendered in ${delta * 1000} milliseconds`,
     // );
 
         for (const object of this.updatables) {
-        object.tick(this.delta);
+        object.tick(delta);
         }
     }
 

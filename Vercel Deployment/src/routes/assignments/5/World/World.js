@@ -21,7 +21,7 @@ import { Vector3 } from 'three';
 import {Parachute} from './components/parachute.js';
 import {createKiwi} from './components/kiwi.js';
 
-let camera, renderer, scene;
+let camera, renderer, scene, controls;
 let directionalLight;
 let group, parachuteShape, kiwiShape;
 let rotationY = 0;
@@ -34,7 +34,10 @@ class World {
     // 1. Create an instance of the World app
     constructor(container) {
         camera = createCamera();
+
         camera.position.set(0, 20, -20);
+
+        controls = cameraOrbit(camera, container);
         camera.lookAt(0, 0, 0);
 
         scene = createScene();

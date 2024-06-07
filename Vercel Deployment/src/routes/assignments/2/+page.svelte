@@ -98,6 +98,19 @@
 
         <canvas bind:this={canvas}></canvas>
 
+
+        <article class="description">
+            <p>The goal of this assignment is to demonstrate full framework deployment (using SvelteKit) and live deployment (using Vercel)</p>
+            <ul>
+                <li>Use a different geometry from the previous assignment</li>
+                <li>Be able to show that mesh in wireframe and solid form</li>
+                <li>Enable animation so the object rotates around it's origin</li>
+                <li>Use SvelteKit (or your chosen framework)</li>
+                <li>One button starts and stops the animation</li>
+                <li>Another button switches the rendering from solid to wireframe</li>
+            </ul>
+        </article>
+
     </body>
   
 </section>

@@ -46,6 +46,18 @@
 
         <canvas bind:this={canvas}></canvas>
 
+        <article class="description">
+            <p>The goal of this assignment is to <em>prove the architecture</em> we'll be using to display WebGL 3D graphics in a web application.  We want to show that we can successfully:</p>
+            <ul>
+                <li>Use the three.js library to create a 3D scene</li>
+                <li>Render the scene to a canvas element</li>
+                <li>Control the animation of the scene</li>
+                <li>All in a Svelte app</li>
+                <li>Deployed to the Web</li>
+            </ul>
+        </article>
+
+
     </body>
   
 </section>

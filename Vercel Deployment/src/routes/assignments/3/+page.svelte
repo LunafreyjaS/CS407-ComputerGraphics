@@ -79,6 +79,15 @@
 
         <canvas bind:this={canvas}></canvas>
 
+        <article class="description">
+            <p>The goal of this assignment is to use the World App architecture from <a href="https://discoverthreejs.com/book/first-steps/world-app/">Discover three.js</a> book to:</p>
+            <ul>
+                <li>Wrap the three.js scene in a World class that hides its implementation</li>
+                <li>refactor the design into separate modules for the scene, camera, objects, renderer, lights, ...</li>
+                <li>and that does a little more than the last assignment, in terms of objects and specifically a lighting effect</li>
+            </ul>
+        </article>
+
     </body>
 
 </section>
