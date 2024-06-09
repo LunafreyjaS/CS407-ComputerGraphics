@@ -10,13 +10,23 @@
     onMount(() => {
         world = new World(canvas);
 
-        world.init();
         world.start();
-        world.initControls();
 
         setInterval(() => {
             fps = world.getFrameRate();
         }, 2000);
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === "w") {
+                world.rotateHourglass("up");
+            } else if (e.key === "a") {
+                world.rotateHourglass("left");
+            } else if (e.key === "s") {
+                world.rotateHourglass("down");
+            } else if (e.key === "d") {
+                world.rotateHourglass("right");
+            }
+        });
     });
 
 </script>
@@ -29,6 +39,8 @@
     </head>
     <body>
         <h2>Luna's Final Project</h2>
+
+        <p> Press WASD to rotate the lamp.</p>
 
         <div id="scene-container"></div>
 

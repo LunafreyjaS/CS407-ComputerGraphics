@@ -47,18 +47,6 @@ class Loop {
         this.updatables = this.updatables.filter((updatable) => updatable !== object);
     }
 
-    playSurvey() {
-        this.fox.playSurvey();
-    }
-
-    playWalk() {
-        this.fox.playWalk();
-    }
-
-    playRun() {
-        this.fox.playRun();
-    }
-
     getFrameRate() {
         if (this.delta === 0) return 0;
         return 1 / this.delta;

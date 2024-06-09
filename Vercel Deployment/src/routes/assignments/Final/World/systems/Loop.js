@@ -4,11 +4,15 @@ import { Clock, PerspectiveCamera, WebGLRenderer, Scene, Object3D } from "three"
 const clock = new Clock();
 
 class Loop {
-    constructor(camera, scene, renderer) {
+    constructor(camera, scene, renderer, bloom) {
         this.camera = camera;
         this.scene = scene;
         this.renderer = renderer;
         this.updatables = [];
+        this.delta = 0;
+        this.bloom = bloom;
+        this.bloomOn = false;
+        
     }
 
     start() {
@@ -17,7 +21,11 @@ class Loop {
         this.tick();
 
         // render a frame
-        this.renderer.render(this.scene, this.camera);
+        if (this.bloomOn) {
+            this.bloom.render();
+        } else {
+            this.renderer.render(this.scene, this.camera);
+        }
         });
     }
 
@@ -27,14 +35,14 @@ class Loop {
 
   tick() {
     // only call the getDelta function once per frame!
-    const delta = clock.getDelta();
+    this.delta = clock.getDelta();
 
     // console.log(
     //   `The last frame rendered in ${delta * 1000} milliseconds`,
     // );
 
         for (const object of this.updatables) {
-        object.tick(delta);
+            object.tick(this.delta);
         }
     }
 
@@ -44,18 +52,6 @@ class Loop {
 
     removeUpdateable(object) {
         this.updatables = this.updatables.filter((updatable) => updatable !== object);
-    }
-
-    playSurvey() {
-        this.fox.playSurvey();
-    }
-
-    playWalk() {
-        this.fox.playWalk();
-    }
-
-    playRun() {
-        this.fox.playRun();
     }
 
     getFrameRate() {
