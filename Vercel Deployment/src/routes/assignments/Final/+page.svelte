@@ -26,6 +26,9 @@
             } else if (e.key === "d") {
                 world.rotateHourglass("right");
             }
+            else if (e.key === " ") {
+                world.addSphere();
+            }
         });
     });
 

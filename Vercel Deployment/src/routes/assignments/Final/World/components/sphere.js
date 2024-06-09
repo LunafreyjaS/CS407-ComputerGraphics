@@ -50,7 +50,7 @@ class lunaSphere extends Mesh{
   checkCollision(otherSphere){
     const distance = this.position.distanceTo(otherSphere.position);
 
-    if(distance < this.mesh.geometry.parameters.radius + otherSphere.mesh.geometry.parameters.radius){
+    if(distance - 0.01 < this.mesh.geometry.parameters.radius + otherSphere.mesh.geometry.parameters.radius){
       return true;
     }
     return false;

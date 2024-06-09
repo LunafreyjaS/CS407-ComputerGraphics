@@ -39,6 +39,10 @@ let rotationX = 0;
 
 let hourglassMatrix;
 let gravityDirection;
+let scale = 1;
+let boundary = scale*4;
+let particleCount = 300;
+
 
 class World {
     // 1. Create an instance of the World app
@@ -62,13 +66,7 @@ class World {
 
         //Create shapes
 
-        const scale = 1;
-
         hourglass = createHourglass(scale);
-
-        const particleCount = 300;
-        const boundary = scale*4;
-
 
         for (let i = 0; i < particleCount; i++) {
         
@@ -140,29 +138,22 @@ class World {
     }
 
     rotateHourglass(direction) {
-
         const rotationSpeed = 0.1;
-        
-        if(direction == "left"){
+    
+        if (direction === "left") {
             rotationY -= rotationSpeed;
-            hourglass.rotation.set(rotationX, rotationY, 0);
-        }
-        else if(direction == "right"){
+        } else if (direction === "right") {
             rotationY += rotationSpeed;
-            hourglass.rotation.set(rotationX, rotationY, 0); 
-        }
-        else if(direction == "up"){
+        } else if (direction === "up") {
             rotationX += rotationSpeed;
-            hourglass.rotation.set(rotationX, rotationY, 0);
-        }
-        else if(direction == "down"){
+        } else if (direction === "down") {
             rotationX -= rotationSpeed;
-            hourglass.rotation.set(rotationX, rotationY, 0);
         }
-
+    
+        hourglass.rotation.set(rotationX, rotationY, 0);
         hourglassMatrix = new Matrix4().makeRotationFromQuaternion(hourglass.quaternion);
         gravityDirection = this.getGravityDirection(hourglass);
-
+    
         this.render();
     }
 
@@ -171,6 +162,16 @@ class World {
         up.applyQuaternion(hourglass.quaternion);
         return up.multiplyScalar(-9.81);
     }
+
+    addSphere() {
+        const particle = new lunaSphere(scale, boundary);
+        spheres.push(particle);
+        scene.add(particle.mesh);
+
+        particleCount++;
+        console.log(particleCount);
+    }
+
 
     // changeColor(color1, color2){
     
