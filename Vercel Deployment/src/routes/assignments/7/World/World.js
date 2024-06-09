@@ -30,7 +30,7 @@ class World {
     // 1. Create an instance of the World app
     constructor(container) {
         camera = createCamera();
-        camera.position.set(0, 10, -20);
+        camera.position.set(0, 20, -30);
         //camera.lookAt(0, -10, 1000);
 
         controls = cameraOrbit(camera, container);
