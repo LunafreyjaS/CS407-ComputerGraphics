@@ -2,8 +2,6 @@
 
     import { onMount } from 'svelte';
     import { World } from './World/World.js'
-    import { cpp } from '@codemirror/lang-cpp';
-    import { oneDark } from '@codemirror/theme-one-dark';
     import ColorPicker from 'svelte-awesome-color-picker';
 
     let canvas;
@@ -11,17 +9,6 @@
     let fps = 0;
     let color1 = "#000000";
     let color2 = "#FFFFFF";
-
-    // let vertexShaderText = `
-    //     varying float yValue;
-
-    //     void main() {
-
-    //     yValue = position.y;
-
-    //     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-    //     }
-    //     `;
 
     let vertexShaderText = `
         varying float yValue;
@@ -35,26 +22,6 @@
         gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }
         `;
-        
-    // let fragmentShaderText = `precision mediump float;
-    //     varying float yValue;
-
-    //     uniform vec3 color1;
-    //     uniform vec3 color2;
-
-    //     void main() {
-        
-    //         float wave = sin(yValue * 10.0) * 0.5 + 0.5; // Change the 10.0 to modify the banding effect
-    //         vec3 color;
-    //         if (yValue >= 0.0) {
-    //             color = mix(color2, color1, wave);
-    //         } else {
-    //             color = mix(color1, color2, wave);
-    //         }
-
-    //         gl_FragColor = vec4(color, 1.0);
-        
-    //     }`;
 
     let fragmentShaderText = `precision mediump float;
         varying float yValue;
@@ -66,7 +33,7 @@
         void main() {
         
 
-            float wave = sin(xValue * 1.0); // Change the 1.0 to modify the thickness of the waves
+            float wave = sin(xValue * 2.0); // Change the 2.0 to modify the thickness of the waves
 
             float blendFactor =(yValue + wave) / 2.0;
 
