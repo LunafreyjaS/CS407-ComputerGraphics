@@ -48,7 +48,7 @@ class World {
     // 1. Create an instance of the World app
     constructor(container) {
         camera = createCamera();
-        camera.position.set(0, 10, -30);
+        camera.position.set(0, 10, -40);
         //camera.lookAt(0, -10, 1000);
 
         controls = cameraOrbit(camera, container);
@@ -84,7 +84,7 @@ class World {
                 });
                 controls.update();
             }
-        })
+        });
 
         // const pos1 = new Vector3(6, 0, 0);
         // const dir1 = new Vector3(0, 0, 1);
@@ -92,7 +92,7 @@ class World {
 
         //spheres.push(sphere1);
 
-        ground = createGround();
+        //ground = createGround();
 
 
         //Create lighting
@@ -138,7 +138,7 @@ class World {
     }
 
     rotateHourglass(direction) {
-        const rotationSpeed = 0.1;
+        const rotationSpeed = Math.PI / 10;
     
         if (direction === "left") {
             rotationY -= rotationSpeed;
@@ -149,6 +149,9 @@ class World {
         } else if (direction === "down") {
             rotationX -= rotationSpeed;
         }
+
+        rotationX = Math.max(Math.min(rotationX, Math.PI), -Math.PI);
+        rotationY = Math.max(Math.min(rotationY, Math.PI), -Math.PI);
     
         hourglass.rotation.set(rotationX, rotationY, 0);
         hourglassMatrix = new Matrix4().makeRotationFromQuaternion(hourglass.quaternion);

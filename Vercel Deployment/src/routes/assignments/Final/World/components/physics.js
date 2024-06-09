@@ -13,53 +13,63 @@ export class Physics {
         this.acceleration = this.gravity;
     }
 
-    tick(mesh, delta, hourglassMatrix, gravityDirection){
-
-        this.acceleration.copy(gravityDirection);
-
+    tick(mesh, delta, hourglassMatrix, gravityDirection) {
+        //this.acceleration.copy(gravityDirection);
+    
         const deltaVelocity = this.acceleration.clone().multiplyScalar(delta);
         this.velocity.add(deltaVelocity);
         this.velocity.multiplyScalar(this.friction);
-
+    
         const deltaPosition = this.velocity.clone().multiplyScalar(delta);
         this.position.add(deltaPosition);
+    
+        // Convert position to local space of the hourglass
+        const localPosition = this.position.clone().applyMatrix4(hourglassMatrix).clone();
 
-        this.position.applyMatrix4(hourglassMatrix);
-
-        this.checkCollisions();
-
+        // Check collisions in local space
+        this.checkCollisions(localPosition, hourglassMatrix);
+    
+        // Convert position back to world space
+        this.position.copy(localPosition.applyMatrix4(hourglassMatrix));
+    
         mesh.position.copy(this.position);
     }
 
-    checkCollisions() {
+    checkCollisions(localPosition, hourglassMatrix) {
         // Define the boundaries of the hourglass shape
         const topY = 7.9;
         const bottomY = -7.9;
         const maxRadius = 4;
         const minRadius = 1;
-
+    
+        // Apply hourglass rotation to position
+        const rotatedPosition = localPosition.clone().applyMatrix4(hourglassMatrix);
+    
         // Check for collision with the top cap
-        if (this.position.y > topY) {
-            this.position.y = topY;
+        if (rotatedPosition.y > topY) {
+            rotatedPosition.y = topY;
             this.velocity.y *= -this.elasticity;
         }
-
+    
         // Check for collision with the bottom cap
-        if (this.position.y < bottomY) {
-            this.position.y = bottomY;
+        if (rotatedPosition.y < bottomY) {
+            rotatedPosition.y = bottomY;
             this.velocity.y *= -this.elasticity;
         }
-
+    
         // Constrain within the hourglass sides
-        const constrainedRadius = this.calculateRadiusConstraint(this.position.y, topY, bottomY, maxRadius, minRadius);
-        const currentRadius = Math.sqrt(this.position.x ** 2 + this.position.z ** 2);
+        const constrainedRadius = this.calculateRadiusConstraint(rotatedPosition.y, topY, bottomY, maxRadius, minRadius);
+        const currentRadius = Math.sqrt(rotatedPosition.x ** 2 + rotatedPosition.z ** 2);
         if (currentRadius > constrainedRadius) {
             const scale = constrainedRadius / currentRadius;
-            this.position.x *= scale;
-            this.position.z *= scale;
+            rotatedPosition.x *= scale;
+            rotatedPosition.z *= scale;
             this.velocity.x *= -this.elasticity;
             this.velocity.z *= -this.elasticity;
         }
+    
+        // Convert back to local space
+        localPosition.copy(rotatedPosition.applyMatrix4(hourglassMatrix.clone().invert()).clone());
     }
 
     calculateRadiusConstraint(y, topY, bottomY, maxRadius, minRadius) {
