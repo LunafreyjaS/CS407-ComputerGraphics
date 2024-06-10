@@ -43,13 +43,16 @@
     <body>
         <h2>Luna's Final Project</h2>
 
-        <p> Press WASD to rotate the lamp.</p>
+        <p> Press WASD to rotate the hourglass.</p>
+        <p> Press Spacebar to add a grain of sand.</p>
 
         <div id="scene-container"></div>
 
         <code>{Math.round(fps)} FPS</code>
 
         <canvas bind:this={canvas}></canvas>
+
+        <p> This hourglass is meant to demonstrate limited physics, particularly gravity and object collision within the confines of a 3D object of intermediate complexity. </p>
 
     </body>
 
