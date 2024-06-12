@@ -17,6 +17,7 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { ShaderMaterial } from 'three';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import { Vector3 } from 'three';
+import {cameraOrbit } from './systems/orbit.js';
 
 import {Parachute} from './components/parachute.js';
 import {createKiwi} from './components/kiwi.js';
